@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Menu } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
 
@@ -12,14 +12,15 @@ import {
   UserAddOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-
 const { SubMenu, Item } = Menu;
 
 const Header = () => {
-  const user = useSelector((state) => state.user);
-  const history = useHistory();
-  const dispatch = useDispatch();
   const [current, setCurrent] = useState("home");
+
+  let dispatch = useDispatch();
+  let { user } = useSelector((state) => ({ ...state }));
+
+  let history = useHistory();
 
   const handleClick = (e) => {
     // console.log(e.key);
@@ -27,42 +28,45 @@ const Header = () => {
   };
 
   const logout = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        dispatch({
-          type: "LOGOUT",
-          payload: null,
-        });
-        history.push("/login");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    firebase.auth().signOut();
+    dispatch({
+      type: "LOGOUT",
+      payload: null,
+    });
+    history.push("/login");
   };
 
   return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
       <Item key="home" icon={<AppstoreOutlined />}>
-        Home
+        <Link to="/">Home</Link>
       </Item>
 
-      <Item key="register" icon={<UserAddOutlined />} className="float-right">
-        Register
-      </Item>
-
-      <Item key="login" icon={<UserOutlined />} className="float-right">
-        Login
-      </Item>
-
-      <SubMenu icon={<SettingOutlined />} title="Username">
-        <Item key="setting:1">Option 1</Item>
-        <Item key="setting:2">Option 2</Item>
-        <Item onClick={logout} icon={<LogoutOutlined />}>
-          Logout
+      {!user && (
+        <Item key="register" icon={<UserAddOutlined />} className="float-right">
+          <Link to="/register">Register</Link>
         </Item>
-      </SubMenu>
+      )}
+
+      {!user && (
+        <Item key="login" icon={<UserOutlined />} className="float-right">
+          <Link to="/login">Login</Link>
+        </Item>
+      )}
+
+      {user && (
+        <SubMenu
+          icon={<SettingOutlined />}
+          title={user.user && user.user.email.split("@")[0]}
+          className="float-right"
+        >
+          <Item key="setting:1">Option 1</Item>
+          <Item key="setting:2">Option 2</Item>
+          <Item icon={<LogoutOutlined />} onClick={logout}>
+            Logout
+          </Item>
+        </SubMenu>
+      )}
     </Menu>
   );
 };

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Button } from "antd";
 import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -117,6 +117,9 @@ const Login = () => {
           >
             Login with Google
           </Button>
+          <Link className="float-right text-danger" to="/forgot/password">
+            Forgot Password
+          </Link>
         </div>
       </div>
     </div>

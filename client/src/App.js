@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ const App = () => {
     });
     // cleanup
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

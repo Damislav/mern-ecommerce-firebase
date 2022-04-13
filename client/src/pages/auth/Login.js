@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth, googleAuthProvider } from "../../firebase";
 import { toast } from "react-toastify";
 import { Button } from "antd";
 import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-const Login = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
+import axios from "axios";
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const createOrUpdateUser = async (authtoken) => {
+  return await axios.post(
+    `${process.env.REACT_APP_API}/create-or-update-user`,
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+};
+
+const Login = ({ history }) => {
+  const [email, setEmail] = useState("gqlreactnode@gmail.com");
+  const [password, setPassword] = useState("gggggg");
   const [loading, setLoading] = useState(false);
+
+  const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [user]);
+
+  let dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,19 +42,44 @@ const Login = () => {
       const { user } = result;
       const idTokenResult = await user.getIdTokenResult();
 
-      dispatch({
-        type: "LOGGED_IN_USER",
-        payload: {
-          email: user.email,
-          token: idTokenResult.token,
-        },
-      });
-      history.push("/");
+      createOrUpdateUser(idTokenResult.token)
+        .then((res) => console.log("CREATE OR UPDATE RES", res))
+        .catch();
+
+      // dispatch({
+      //   type: "LOGGED_IN_USER",
+      //   payload: {
+      //     email: user.email,
+      //     token: idTokenResult.token,
+      //   },
+      // });
+      // history.push("/");
     } catch (error) {
       console.log(error);
       toast.error(error.message);
       setLoading(false);
     }
+  };
+
+  const googleLogin = async () => {
+    auth
+      .signInWithPopup(googleAuthProvider)
+      .then(async (result) => {
+        const { user } = result;
+        const idTokenResult = await user.getIdTokenResult();
+        dispatch({
+          type: "LOGGED_IN_USER",
+          payload: {
+            email: user.email,
+            token: idTokenResult.token,
+          },
+        });
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
   };
 
   const loginForm = () => (
@@ -76,26 +120,7 @@ const Login = () => {
       </Button>
     </form>
   );
-  const googleLogin = async () => {
-    await auth
-      .signInWithPopup(googleAuthProvider)
-      .then(async (result) => {
-        const { user } = result;
-        const idTokenResult = await user.getIdTokenResult();
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: user.email,
-            token: idTokenResult.token,
-          },
-        });
-        history.push("/");
-      })
-      .catch((error) => {
-        console.log(error.message);
-        toast.error(error.message);
-      });
-  };
+
   return (
     <div className="container p-5">
       <div className="row">
@@ -106,6 +131,7 @@ const Login = () => {
             <h4>Login</h4>
           )}
           {loginForm()}
+
           <Button
             onClick={googleLogin}
             type="danger"
@@ -117,7 +143,8 @@ const Login = () => {
           >
             Login with Google
           </Button>
-          <Link className="float-right text-danger" to="/forgot/password">
+
+          <Link to="/forgot/password" className="float-right text-danger">
             Forgot Password
           </Link>
         </div>

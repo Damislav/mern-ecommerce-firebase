@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
-
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Register = () => {
+  const history = useHistory();
   const [email, setEmail] = useState("");
+  const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    if (user && user.token) history.push("/");
+    // eslint-disable-next-line
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log("ENV --->", process.env.REACT_APP_REGISTER_REDIRECT_URL);
     const config = {
       url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
       handleCodeInApp: true,
     };
+
     await auth.sendSignInLinkToEmail(email, config);
     toast.success(
       `Email is sent to ${email}. Click the link to complete your registration.`

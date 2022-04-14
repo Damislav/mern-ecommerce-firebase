@@ -16,4 +16,3 @@ const {
 router.post("/category", create);
 router.get("/category");
 module.exports = router;
-ss;

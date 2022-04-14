@@ -8,8 +8,8 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-
   const { user } = useSelector((state) => ({ ...state }));
+  
   useEffect(() => {
     if (user && user.token) history.push("/");
     // eslint-disable-next-line

@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { createOrUpdateUser } from "../../functions/auth";
 const RegisterComplete = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForRegistration"));
@@ -31,7 +36,7 @@ const RegisterComplete = () => {
         email,
         window.location.href
       );
-      //   console.log("RESULT", result);
+      
       if (result.user.emailVerified) {
         // remove user email fom local storage
         window.localStorage.removeItem("emailForRegistration");
@@ -41,6 +46,22 @@ const RegisterComplete = () => {
         const idTokenResult = await user.getIdTokenResult();
         // redux store
         console.log("user", user, "idTokenResult", idTokenResult);
+
+        createOrUpdateUser(idTokenResult.token)
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((err) => console.log(err));
+
         // redirect
         history.push("/");
       }
@@ -68,7 +89,6 @@ const RegisterComplete = () => {
       </button>
     </form>
   );
-
   return (
     <div className="container p-5">
       <div className="row">

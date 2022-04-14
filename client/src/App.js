@@ -26,7 +26,7 @@ const App = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
-        console.log("user", user);
+        // console.log("user", user);
 
         currentUser(idTokenResult.token)
           .then((res) => {
@@ -38,7 +38,7 @@ const App = () => {
                 token: idTokenResult.token,
                 role: res.data.role,
                 _id: res.data._id,
-              },
+            },
             });
           })
           .catch((err) => console.log(err));
@@ -46,7 +46,7 @@ const App = () => {
     });
     // cleanup
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

@@ -6,15 +6,18 @@ import {
   createCategory,
   getCategories,
   removeCategory,
-  updateCategory,
 } from "../../../functions/category";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import CategoryForm from "../../../components/forms/CategoryForm";
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  // searching filtering
+  // ştep 1
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     loadCategories();
@@ -42,23 +45,7 @@ const CategoryCreate = () => {
         setLoading(false);
       });
   };
-  const categoryForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Name</label>
-        <input
-          type="text"
-          className="form-control"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          autoFocus
-          required
-        />
-        <br />
-        <button className="btn btn-outline-primary">Save</button>
-      </div>
-    </form>
-  );
+
   const handleRemove = async (slug) => {
     // let answer = window.confirm("Delete?");
     // console.log(answer, slug);
@@ -78,6 +65,15 @@ const CategoryCreate = () => {
         });
     }
   };
+
+  // step 3
+  const handleSearchChange = (e) => {
+    e.preventDefault();
+    setKeyword(e.target.value.toLowerCase());
+  };
+  // step 4
+  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -90,26 +86,39 @@ const CategoryCreate = () => {
           ) : (
             <h4>Create category</h4>
           )}
-          {categoryForm()}
+          <CategoryForm
+            name={name}
+            setName={setName}
+            handleSubmit={handleSubmit}
+          />
+          {/* step 2 */}
+          <input
+            type="search"
+            placeholder="Filter"
+            value={keyword}
+            onChange={handleSearchChange}
+            className="form-control mb-4"
+          />
+
           <hr />
-          {categories.map((category) => {
-            return (
-              <div className="alert alert-secondary" key={category._id}>
-                {category.name}
-                <span
-                  className="btn btn-sm float-right"
-                  onClick={() => handleRemove(category.slug)}
-                >
-                  <DeleteOutlined classID="text-danger" />
-                </span>{" "}
-                <Link to={`/admin/category/${category.slug}`}>
-                  <span className="btn btn-sm float-right">
-                    <EditOutlined className="text-warning" />
-                  </span>
-                </Link>
-              </div>
-            );
-          })}
+          <hr />
+          {/* step 5 */}
+          {categories.filter(searched(keyword)).map((c) => (
+            <div className="alert alert-secondary" key={c._id}>
+              {c.name}
+              <span
+                onClick={() => handleRemove(c.slug)}
+                className="btn btn-sm float-right"
+              >
+                <DeleteOutlined className="text-danger" />
+              </span>
+              <Link to={`/admin/category/${c.slug}`}>
+                <span className="btn btn-sm float-right">
+                  <EditOutlined className="text-warning" />
+                </span>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>

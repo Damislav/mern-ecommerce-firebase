@@ -1,10 +1,5 @@
 import React, { useState } from "react";
 import { Menu } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import firebase from "firebase/app";
-import "firebase/auth";
-
 import {
   AppstoreOutlined,
   SettingOutlined,
@@ -12,6 +7,10 @@ import {
   UserAddOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import firebase from "firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const { SubMenu, Item } = Menu;
 
@@ -63,14 +62,16 @@ const Header = () => {
         >
           {user && user.role === "subscriber" && (
             <Item>
-              <Link to="/user/history">Subscriber Dashboard</Link>
-            </Item>
-          )}{" "}
-          {user && user.role === "admin" && (
-            <Item>
-              <Link to="/admin/dasboard">Admin Dashboard</Link>
+              <Link to="/user/history">Dashboard</Link>
             </Item>
           )}
+
+          {user && user.role === "admin" && (
+            <Item>
+              <Link to="/admin/dashboard">Dashboard</Link>
+            </Item>
+          )}
+
           <Item icon={<LogoutOutlined />} onClick={logout}>
             Logout
           </Item>

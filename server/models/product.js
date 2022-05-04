@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose;
+const { ObjectId } = mongoose.Schema;
 
 const productSchema = new mongoose.Schema(
   {
@@ -14,12 +14,12 @@ const productSchema = new mongoose.Schema(
       type: String,
       unique: true,
       lowercase: true,
-      indexes: true,
+      index: true,
     },
     description: {
       type: String,
       required: true,
-      maxlength: 200,
+      maxlength: 2000,
       text: true,
     },
     price: {
@@ -43,9 +43,9 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    images: {
-      type: Array,
-    },
+    // images: {
+    //   type: Array,
+    // },
     shipping: {
       type: String,
       enum: ["Yes", "No"],
@@ -56,12 +56,12 @@ const productSchema = new mongoose.Schema(
     },
     brand: {
       type: String,
-      enum: ["Lenovo", "Samsung", "Asus", "Microsoft", "Apple"],
+      enum: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
     },
     // ratings: [
     //   {
     //     star: Number,
-    //     postedBy: { type: ObjectId },
+    //     postedBy: { type: ObjectId, ref: "User" },
     //   },
     // ],
   },

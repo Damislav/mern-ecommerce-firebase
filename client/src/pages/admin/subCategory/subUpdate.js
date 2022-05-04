@@ -4,13 +4,12 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { getCategories } from "../../../functions/category";
 import { updateSub, getSub } from "../../../functions/sub";
+import { Link } from "react-router-dom";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
-import { useHistory, useParams } from "react-router-dom";
+import LocalSearch from "../../../components/forms/LocalSearch";
 
-const SubUpdate = () => {
-  const history = useHistory();
-  const params = useParams();
-
+const SubUpdate = ({ match, history }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
   const [name, setName] = useState("");
@@ -27,7 +26,7 @@ const SubUpdate = () => {
     getCategories().then((c) => setCategories(c.data));
 
   const loadSub = () =>
-    getSub(params.slug).then((s) => {
+    getSub(match.params.slug).then((s) => {
       setName(s.data.name);
       setParent(s.data.parent);
     });
@@ -36,7 +35,7 @@ const SubUpdate = () => {
     e.preventDefault();
     // console.log(name);
     setLoading(true);
-    updateSub(params.slug, { name, parent }, user.token)
+    updateSub(match.params.slug, { name, parent }, user.token)
       .then((res) => {
         // console.log(res)
         setLoading(false);

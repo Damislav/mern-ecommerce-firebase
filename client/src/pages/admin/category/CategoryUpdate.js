@@ -13,7 +13,6 @@ const CategoryUpdate = ({ history, match }) => {
 
   useEffect(() => {
     loadCategory();
-    // eslint-disable-next-line
   }, []);
 
   const loadCategory = () =>
@@ -50,11 +49,13 @@ const CategoryUpdate = ({ history, match }) => {
           ) : (
             <h4>Update category</h4>
           )}
+
           <CategoryForm
+            handleSubmit={handleSubmit}
             name={name}
             setName={setName}
-            handleSubmit={handleSubmit}
           />
+
           <hr />
         </div>
       </div>

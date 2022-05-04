@@ -11,15 +11,16 @@ const AdminRoute = ({ children, ...rest }) => {
     if (user && user.token) {
       currentAdmin(user.token)
         .then((res) => {
-          // console.log("res", res);
+          // console.log("CURRENT ADMIN RES", res);
           setOk(true);
         })
         .catch((err) => {
-          console.log("Admin route error", err);
+          // console.log("ADMIN ROUTE ERR", err);
           setOk(false);
         });
     }
   }, [user]);
+
   return ok ? <Route {...rest} /> : <LoadingToRedirect />;
 };
 

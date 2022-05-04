@@ -23,6 +23,7 @@
     "slugify": "^1.6.5"
   },
   "devDependencies": {
+    "@types/node": "^17.0.31",
     "nodemon": "^2.0.15"
   }
 }

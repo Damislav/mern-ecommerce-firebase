@@ -1,8 +1,12 @@
 import React from "react";
+import { Select } from "antd";
+
+const { Option } = Select;
 
 const ProductCreateForm = ({
   handleSubmit,
   handleChange,
+  setValues,
   values,
   handleCatagoryChange,
   subOptions,
@@ -125,8 +129,28 @@ const ProductCreateForm = ({
         </select>
       </div>
 
-      {subOptions ? subOptions.length : "no subs yet"}
-
+      {showSub && (
+        <div>
+          <label>Sub Categories</label>
+          <Select
+            mode="multiple"
+            style={{ width: "100%" }}
+            placeholder="Please select"
+            value={subs}
+            onChange={(value) => setValues({ ...values, subs: value })}
+          >
+            {subOptions.length &&
+              subOptions.map((s) => {
+                return (
+                  <Option key={s._id} value={s._id}>
+                    {s.name}
+                  </Option>
+                );
+              })}
+          </Select>
+        </div>
+      )}
+      <br />
       <button className="btn btn-outline-info">Save</button>
     </form>
   );

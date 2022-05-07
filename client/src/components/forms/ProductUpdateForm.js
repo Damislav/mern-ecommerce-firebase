@@ -3,14 +3,11 @@ import { Select } from "antd";
 
 const { Option } = Select;
 
-const ProductCreateForm = ({
+const ProductUpdateForm = ({
   handleSubmit,
   handleChange,
   setValues,
   values,
-  handleCategoryChangeh,
-  subOptions,
-  showSub,
 }) => {
   // destructure
   const {
@@ -117,7 +114,7 @@ const ProductCreateForm = ({
         <select
           name="category"
           className="form-control"
-          onChange={handleCategoryChange}
+          onChange={handleCatagoryChange}
         >
           <option>Please select</option>
           {categories.length > 0 &&
@@ -156,4 +153,4 @@ const ProductCreateForm = ({
   );
 };
 
-export default ProductCreateForm;
+export default ProductUpdateForm;

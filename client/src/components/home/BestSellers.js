@@ -23,6 +23,7 @@ const BestSellers = () => {
     // sort, order, limit
     getProducts("sold", "desc", page).then((res) => {
       setProducts(res.data);
+
       setLoading(false);
     });
   };

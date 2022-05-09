@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { auth } from "../../firebase";
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ history }) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+
   const { user } = useSelector((state) => ({ ...state }));
-  
+
   useEffect(() => {
     if (user && user.token) history.push("/");
-    // eslint-disable-next-line
-  }, [user]);
+  }, [user, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

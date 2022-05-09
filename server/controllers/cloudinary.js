@@ -9,24 +9,16 @@ cloudinary.config({
 
 // req.files.file.path
 exports.upload = async (req, res) => {
-  await cloudinary.v2.uploader.upload(
-    req.body.image,
-    {
-      public_id: `${Date.now()}`,
-      resource_type: "auto", // jpeg, png
-    },
-    function (error, result) {
-      if (error) {
-        console.log(error);
-      } else {
-        res.json({
-          public_id: result.public_id,
-          url: result.secure_url,
-        });
-      }
-    }
-  );
+  let result = await cloudinary.uploader.upload(req.body.image, {
+    public_id: `${Date.now()}`,
+    resource_type: "auto", // jpeg, png
+  });
+  res.json({
+    public_id: result.public_id,
+    url: result.secure_url,
+  });
 };
+
 exports.remove = (req, res) => {
   let image_id = req.body.public_id;
 

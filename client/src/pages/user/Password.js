@@ -10,11 +10,13 @@ const Password = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    // console.log(password);
+
     await auth.currentUser
       .updatePassword(password)
       .then(() => {
-        setPassword("");
         setLoading(false);
+        setPassword("");
         toast.success("Password updated");
       })
       .catch((err) => {
@@ -22,6 +24,7 @@ const Password = () => {
         toast.error(err.message);
       });
   };
+
   const passwordUpdateForm = () => (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -29,19 +32,18 @@ const Password = () => {
         <input
           type="password"
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="enter new password ..."
           className="form-control"
-          value={password}
+          placeholder="Enter new password"
           disabled={loading}
+          value={password}
         />
+        <button
+          className="btn btn-primary"
+          disabled={!password || password.length < 6 || loading}
+        >
+          Submit
+        </button>
       </div>
-      <button
-        disabled={!password || password.length < 6 || loading}
-        className="btn btn-primary"
-        type="submit"
-      >
-        Submit
-      </button>
     </form>
   );
 
@@ -51,13 +53,13 @@ const Password = () => {
         <div className="col-md-2">
           <UserNav />
         </div>
-        <div className="col-4">
+        <div className="col">
           {loading ? (
-            <span class="sr-only">Loading...</span>
+            <h4 className="text-danger">Loading..</h4>
           ) : (
             <h4>Password Update</h4>
           )}
-          {passwordUpdateForm()}{" "}
+          {passwordUpdateForm()}
         </div>
       </div>
     </div>

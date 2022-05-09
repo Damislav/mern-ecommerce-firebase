@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth, googleAuthProvider } from "../../firebase";
 import { toast } from "react-toastify";
 import { Button } from "antd";
-import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
-import { useHistory } from "react-router-dom";
+import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createOrUpdateUser, roleBasedRedirect } from "../../functions/auth";
+import { createOrUpdateUser } from "../../functions/auth";
 
-const Login = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = ({ history }) => {
+  const [email, setEmail] = useState("gqlreactnode@gmail.com");
+  const [password, setPassword] = useState("gggggg");
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
@@ -21,12 +18,23 @@ const Login = () => {
     if (user && user.token) history.push("/");
   }, [user, history]);
 
+  let dispatch = useDispatch();
+
+  const roleBasedRedirect = (res) => {
+    if (res.data.role === "admin") {
+      history.push("/admin/dashboard");
+    } else {
+      history.push("/user/history");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    // console.table(email, password);
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
+      // console.log(result);
       const { user } = result;
       const idTokenResult = await user.getIdTokenResult();
 
@@ -42,15 +50,18 @@ const Login = () => {
               _id: res.data._id,
             },
           });
-          roleBasedRedirect(res, history);
+          roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
+
+      // history.push("/");
     } catch (error) {
       console.log(error);
       toast.error(error.message);
       setLoading(false);
     }
   };
+
   const googleLogin = async () => {
     auth
       .signInWithPopup(googleAuthProvider)
@@ -69,16 +80,17 @@ const Login = () => {
                 _id: res.data._id,
               },
             });
-            roleBasedRedirect(res, history);
+            roleBasedRedirect(res);
           })
           .catch((err) => console.log(err));
-        history.push("/");
+        // history.push("/");
       })
       .catch((err) => {
         console.log(err);
         toast.error(err.message);
       });
   };
+
   const loginForm = () => (
     <form onSubmit={handleSubmit}>
       <div className="form-group">

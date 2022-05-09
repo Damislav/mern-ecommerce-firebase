@@ -1,29 +1,33 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Home from "./pages/Home";
 import Header from "./components/nav/Header";
 import RegisterComplete from "./pages/auth/RegisterComplete";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { auth } from "./firebase";
-import { useDispatch } from "react-redux";
 import ForgotPassword from "./pages/auth/ForgotPassword";
-import { currentUser } from "./functions/auth";
 import History from "./pages/user/History";
 import UserRoute from "./components/routes/UserRoute";
+import AdminRoute from "./components/routes/AdminRoute";
 import Password from "./pages/user/Password";
 import Wishlist from "./pages/user/Wishlist";
-import AdminRoute from "./components/routes/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CategoryCreate from "./pages/admin/category/CategoryCreate";
 import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
-import SubCreate from "./pages/admin/subCategory/subCreate";
-import SubUpdate from "./pages/admin/subCategory/subUpdate";
+import SubCreate from "./pages/admin/sub/SubCreate";
+import SubUpdate from "./pages/admin/sub/SubUpdate";
 import ProductCreate from "./pages/admin/product/ProductCreate";
 import AllProducts from "./pages/admin/product/AllProducts";
 import ProductUpdate from "./pages/admin/product/ProductUpdate";
+import Product from "./pages/Product";
+
+import { auth } from "./firebase";
+import { useDispatch } from "react-redux";
+import { currentUser } from "./functions/auth";
+import Pagination from "./Pagination";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -84,6 +88,8 @@ const App = () => {
           path="/admin/product/:slug"
           component={ProductUpdate}
         />
+        <Route exact path="/product/:slug" component={Product} />
+        <Route exact path="/pagination" component={Pagination} />
       </Switch>
     </>
   );

@@ -45,6 +45,7 @@ exports.read = async (req, res) => {
     .exec();
   res.json(product);
 };
+
 exports.update = async (req, res) => {
   try {
     if (req.body.title) {
@@ -64,7 +65,8 @@ exports.update = async (req, res) => {
     });
   }
 };
-// without pagination --
+
+// WITHOUT PAGINATION
 // exports.list = async (req, res) => {
 //   try {
 //     // createdAt/updatedAt, desc/asc, 3
@@ -81,17 +83,18 @@ exports.update = async (req, res) => {
 //     console.log(err);
 //   }
 // };
-// with pagination
 
+// WITH PAGINATION
 exports.list = async (req, res) => {
+  // console.table(req.body);
   try {
     // createdAt/updatedAt, desc/asc, 3
     const { sort, order, page } = req.body;
     const currentPage = page || 1;
-    const perPage = 3;
+    const perPage = 3; // 3
 
     const products = await Product.find({})
-      .skip(currentPage - 1 * perPage)
+      .skip((currentPage - 1) * perPage)
       .populate("category")
       .populate("subs")
       .sort([[sort, order]])

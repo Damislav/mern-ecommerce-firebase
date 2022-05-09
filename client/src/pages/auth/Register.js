@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-const Register = () => {
-  const history = useHistory();
+
+const Register = ({ history }) => {
   const [email, setEmail] = useState("");
+
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     if (user && user.token) history.push("/");
-    // eslint-disable-next-line
   }, [user, history]);
 
   const handleSubmit = async (e) => {
@@ -30,6 +29,7 @@ const Register = () => {
     // clear state
     setEmail("");
   };
+
   const registerForm = () => (
     <form onSubmit={handleSubmit}>
       <input
@@ -37,9 +37,11 @@ const Register = () => {
         className="form-control"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        placeholder="Your email"
         autoFocus
       />
 
+      <br />
       <button type="submit" className="btn btn-raised">
         Register
       </button>
@@ -51,7 +53,6 @@ const Register = () => {
       <div className="row">
         <div className="col-md-6 offset-md-3">
           <h4>Register</h4>
-
           {registerForm()}
         </div>
       </div>

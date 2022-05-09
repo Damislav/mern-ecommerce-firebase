@@ -8,7 +8,7 @@ const ProductCreateForm = ({
   handleChange,
   setValues,
   values,
-  handleCategoryChangeh,
+  handleCatagoryChange,
   subOptions,
   showSub,
 }) => {
@@ -117,7 +117,7 @@ const ProductCreateForm = ({
         <select
           name="category"
           className="form-control"
-          onChange={handleCategoryChange}
+          onChange={handleCatagoryChange}
         >
           <option>Please select</option>
           {categories.length > 0 &&
@@ -140,16 +140,15 @@ const ProductCreateForm = ({
             onChange={(value) => setValues({ ...values, subs: value })}
           >
             {subOptions.length &&
-              subOptions.map((s) => {
-                return (
-                  <Option key={s._id} value={s._id}>
-                    {s.name}
-                  </Option>
-                );
-              })}
+              subOptions.map((s) => (
+                <Option key={s._id} value={s._id}>
+                  {s.name}
+                </Option>
+              ))}
           </Select>
         </div>
       )}
+
       <br />
       <button className="btn btn-outline-info">Save</button>
     </form>

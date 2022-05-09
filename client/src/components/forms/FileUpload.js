@@ -1,10 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import Resizer from "react-image-file-resizer";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { Avatar, Badge } from "antd";
 
-const FileUpload = ({ setLoading, values, setValues }) => {
+const FileUpload = ({ values, setValues, setLoading }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
   const fileUploadAndResize = (e) => {
@@ -54,9 +54,10 @@ const FileUpload = ({ setLoading, values, setValues }) => {
     // send back to server to upload to cloudinary
     // set url to images[] in the parent component state - ProductCreate
   };
+
   const handleImageRemove = (public_id) => {
     setLoading(true);
-
+    // console.log("remove image", public_id);
     axios
       .post(
         `${process.env.REACT_APP_API}/removeimage`,
@@ -80,35 +81,35 @@ const FileUpload = ({ setLoading, values, setValues }) => {
         setLoading(false);
       });
   };
+
   return (
     <>
       <div className="row">
-        {" "}
         {values.images &&
           values.images.map((image) => (
             <Badge
-              key={image.public_id}
-              style={{ cursor: "pointer" }}
-              onClick={() => handleImageRemove(image.public_id)}
               count="X"
+              key={image.public_id}
+              onClick={() => handleImageRemove(image.public_id)}
+              style={{ cursor: "pointer" }}
             >
               <Avatar
-                size={60}
-                shape="square"
                 src={image.url}
+                size={100}
+                shape="square"
                 className="ml-3"
               />
             </Badge>
           ))}
       </div>
       <div className="row">
-        <label className="btn btn-primary btn-raised">
+        <label className="btn btn-primary btn-raised mt-3">
           Choose File
           <input
             type="file"
             multiple
-            accept="images/*"
             hidden
+            accept="images/*"
             onChange={fileUploadAndResize}
           />
         </label>

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import {
   createCategory,
   getCategories,
   removeCategory,
 } from "../../../functions/category";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 

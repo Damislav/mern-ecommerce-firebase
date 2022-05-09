@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import { getCategory, updateCategory } from "../../../functions/category";
 import CategoryForm from "../../../components/forms/CategoryForm";
 

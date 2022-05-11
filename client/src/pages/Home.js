@@ -27,8 +27,11 @@ const Home = () => {
       </h4>
       <CategoryList />
 
-      <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">Subs</h4>
+      <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
+        Sub Categories
+      </h4>
       <SubList />
+
       <br />
       <br />
     </>

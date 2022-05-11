@@ -23,12 +23,12 @@ import ProductCreate from "./pages/admin/product/ProductCreate";
 import AllProducts from "./pages/admin/product/AllProducts";
 import ProductUpdate from "./pages/admin/product/ProductUpdate";
 import Product from "./pages/Product";
+import CategoryHome from "./pages/category/CategoryHome";
+import SubHome from "./pages/sub/SubHome";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
-import CategoryHome from "./pages/category/CategoryHome";
-import SubHome from "./pages/category/CategoryHome";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,6 @@ const App = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
-        // console.log("user", user);
 
         currentUser(idTokenResult.token)
           .then((res) => {

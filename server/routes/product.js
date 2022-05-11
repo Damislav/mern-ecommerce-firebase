@@ -32,4 +32,7 @@ router.put("/product/star/:productId", authCheck, productStar);
 // related
 router.get("/product/related/:productId", listRelated);
 
+// search
+router.post('/product/')
+
 module.exports = router;

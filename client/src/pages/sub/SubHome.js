@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import ProductCard from "../../components/cards/ProductCard";
 import { getSub } from "../../functions/sub";
+import ProductCard from "../../components/cards/ProductCard";
 
-const SubHome = () => {
-  const { slug } = useParams();
+const SubHome = ({ match }) => {
   const [sub, setSub] = useState({});
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const { slug } = match.params;
+
   useEffect(() => {
     setLoading(true);
     getSub(slug).then((res) => {
-      // console.log(JSON.stringify(res.data, null, 4));
+      console.log(JSON.stringify(res.data, null, 4));
       setSub(res.data.sub);
       setProducts(res.data.products);
       setLoading(false);

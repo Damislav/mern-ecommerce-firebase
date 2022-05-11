@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { getCategory } from "../../functions/category";
 import ProductCard from "../../components/cards/ProductCard";
-import { useParams } from "react-router-dom";
 
-const SubHome = () => {
-  const { slug } = useParams();
+const CategoryHome = ({ match }) => {
   const [category, setCategory] = useState({});
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const { slug } = match.params;
 
   useEffect(() => {
     setLoading(true);
@@ -29,7 +29,7 @@ const SubHome = () => {
             </h4>
           ) : (
             <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
-              {products.length} Products in "name" category
+              {products.length} Products in "{category.name}" category
             </h4>
           )}
         </div>
@@ -46,4 +46,4 @@ const SubHome = () => {
   );
 };
 
-export default SubHome;
+export default CategoryHome;

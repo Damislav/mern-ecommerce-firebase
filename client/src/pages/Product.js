@@ -4,15 +4,15 @@ import SingleProduct from "../components/cards/SingleProduct";
 import { useSelector } from "react-redux";
 import { getRelated } from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
-import { useParams } from "react-router-dom";
 
 const Product = ({ match }) => {
-  const { slug } = useParams();
   const [product, setProduct] = useState({});
   const [related, setRelated] = useState([]);
   const [star, setStar] = useState(0);
   // redux
   const { user } = useSelector((state) => ({ ...state }));
+
+  const { slug } = match.params;
 
   useEffect(() => {
     loadSingleProduct();

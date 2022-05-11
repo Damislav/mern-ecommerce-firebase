@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 const ProductListItems = ({ product }) => {
   const { price, category, subs, shipping, color, brand, quantity, sold } =
     product;
-  console.log(product);
+
   return (
     <ul className="list-group">
       <li className="list-group-item">
-        Price
+        Price{" "}
         <span className="label label-default label-pill pull-xs-right">
           $ {price}
         </span>
@@ -16,7 +16,7 @@ const ProductListItems = ({ product }) => {
 
       {category && (
         <li className="list-group-item">
-          Category
+          Category{" "}
           <Link
             to={`/category/${category.slug}`}
             className="label label-default label-pill pull-xs-right"

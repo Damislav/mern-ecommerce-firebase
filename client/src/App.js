@@ -27,7 +27,8 @@ import Product from "./pages/Product";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
-import Pagination from "./Pagination";
+import CategoryHome from "./pages/category/CategoryHome";
+import SubHome from "./pages/category/CategoryHome";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -89,7 +90,8 @@ const App = () => {
           component={ProductUpdate}
         />
         <Route exact path="/product/:slug" component={Product} />
-        <Route exact path="/pagination" component={Pagination} />
+        <Route exact path="/category/:slug" component={CategoryHome} />
+        <Route exact path="/sub/:slug" component={SubHome} />
       </Switch>
     </>
   );

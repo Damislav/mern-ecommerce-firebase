@@ -30,6 +30,7 @@ import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
 import Shop from "./pages/Shop";
+import Cart from "./pages/Cart";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const App = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
+        // console.log("user", user);
 
         currentUser(idTokenResult.token)
           .then((res) => {
@@ -92,7 +94,8 @@ const App = () => {
         <Route exact path="/product/:slug" component={Product} />
         <Route exact path="/category/:slug" component={CategoryHome} />
         <Route exact path="/sub/:slug" component={SubHome} />
-        <Route exact path="/shop" component={Shop} />
+        <Route exact path="/shop" component={Shop} />{" "}
+        <Route exact path="/cart" component={Cart} />
       </Switch>
     </>
   );

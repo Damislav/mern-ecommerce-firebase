@@ -81,7 +81,7 @@ const Shop = () => {
 
   // 3. load products based on price range
   useEffect(() => {
-    console.log("ok to request");
+    // console.log("ok to request");
     fetchProducts({ price });
   }, [ok]);
 

@@ -11,7 +11,6 @@ import LocalSearch from "../../../components/forms/LocalSearch";
 
 const SubUpdate = ({ match, history }) => {
   const { user } = useSelector((state) => ({ ...state }));
-
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -33,7 +32,6 @@ const SubUpdate = ({ match, history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(name);
     setLoading(true);
     updateSub(match.params.slug, { name, parent }, user.token)
       .then((res) => {

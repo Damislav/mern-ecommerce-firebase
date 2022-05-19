@@ -14,6 +14,7 @@ import {
   StarOutlined,
 } from "@ant-design/icons";
 import Star from "../components/forms/Star";
+ 
 
 const { SubMenu, ItemGroup } = Menu;
 
@@ -310,138 +311,140 @@ const Shop = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-3 pt-2">
-          <h4>Search/Filter</h4>
-          <hr />
+     
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-3 pt-2">
+            <h4>Search/Filter</h4>
+            <hr />
 
-          <Menu
-            defaultOpenKeys={["1", "2", "3", "4", "5", "6", "7"]}
-            mode="inline"
-          >
-            {/* price */}
-            <SubMenu
-              key="1"
-              title={
-                <span className="h6">
-                  <DollarOutlined /> Price
-                </span>
-              }
+            <Menu
+              defaultOpenKeys={["1", "2", "3", "4", "5", "6", "7"]}
+              mode="inline"
             >
-              <div>
-                <Slider
-                  className="ml-4 mr-4"
-                  tipFormatter={(v) => `$${v}`}
-                  range
-                  value={price}
-                  onChange={handleSlider}
-                  max="4999"
-                />
-              </div>
-            </SubMenu>
+              {/* price */}
+              <SubMenu
+                key="1"
+                title={
+                  <span className="h6">
+                    <DollarOutlined /> Price
+                  </span>
+                }
+              >
+                <div>
+                  <Slider
+                    className="ml-4 mr-4"
+                    tipFormatter={(v) => `$${v}`}
+                    range
+                    value={price}
+                    onChange={handleSlider}
+                    max="4999"
+                  />
+                </div>
+              </SubMenu>
 
-            {/* category */}
-            <SubMenu
-              key="2"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Categories
-                </span>
-              }
-            >
-              <div style={{ maringTop: "-10px" }}>{showCategories()}</div>
-            </SubMenu>
+              {/* category */}
+              <SubMenu
+                key="2"
+                title={
+                  <span className="h6">
+                    <DownSquareOutlined /> Categories
+                  </span>
+                }
+              >
+                <div style={{ maringTop: "-10px" }}>{showCategories()}</div>
+              </SubMenu>
 
-            {/* stars */}
-            <SubMenu
-              key="3"
-              title={
-                <span className="h6">
-                  <StarOutlined /> Rating
-                </span>
-              }
-            >
-              <div style={{ maringTop: "-10px" }}>{showStars()}</div>
-            </SubMenu>
+              {/* stars */}
+              <SubMenu
+                key="3"
+                title={
+                  <span className="h6">
+                    <StarOutlined /> Rating
+                  </span>
+                }
+              >
+                <div style={{ maringTop: "-10px" }}>{showStars()}</div>
+              </SubMenu>
 
-            {/* sub category */}
-            <SubMenu
-              key="4"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Sub Categories
-                </span>
-              }
-            >
-              <div style={{ maringTop: "-10px" }} className="pl-4 pr-4">
-                {showSubs()}
-              </div>
-            </SubMenu>
+              {/* sub category */}
+              <SubMenu
+                key="4"
+                title={
+                  <span className="h6">
+                    <DownSquareOutlined /> Sub Categories
+                  </span>
+                }
+              >
+                <div style={{ maringTop: "-10px" }} className="pl-4 pr-4">
+                  {showSubs()}
+                </div>
+              </SubMenu>
 
-            {/* brands */}
-            <SubMenu
-              key="5"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Brands
-                </span>
-              }
-            >
-              <div style={{ maringTop: "-10px" }} className="pr-5">
-                {showBrands()}
-              </div>
-            </SubMenu>
+              {/* brands */}
+              <SubMenu
+                key="5"
+                title={
+                  <span className="h6">
+                    <DownSquareOutlined /> Brands
+                  </span>
+                }
+              >
+                <div style={{ maringTop: "-10px" }} className="pr-5">
+                  {showBrands()}
+                </div>
+              </SubMenu>
 
-            {/* colors */}
-            <SubMenu
-              key="6"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Colors
-                </span>
-              }
-            >
-              <div style={{ maringTop: "-10px" }} className="pr-5">
-                {showColors()}
-              </div>
-            </SubMenu>
+              {/* colors */}
+              <SubMenu
+                key="6"
+                title={
+                  <span className="h6">
+                    <DownSquareOutlined /> Colors
+                  </span>
+                }
+              >
+                <div style={{ maringTop: "-10px" }} className="pr-5">
+                  {showColors()}
+                </div>
+              </SubMenu>
 
-            {/* shipping */}
-            <SubMenu
-              key="7"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Shipping
-                </span>
-              }
-            >
-              <div style={{ maringTop: "-10px" }} className="pr-5">
-                {showShipping()}
-              </div>
-            </SubMenu>
-          </Menu>
-        </div>
+              {/* shipping */}
+              <SubMenu
+                key="7"
+                title={
+                  <span className="h6">
+                    <DownSquareOutlined /> Shipping
+                  </span>
+                }
+              >
+                <div style={{ maringTop: "-10px" }} className="pr-5">
+                  {showShipping()}
+                </div>
+              </SubMenu>
+            </Menu>
+          </div>
 
-        <div className="col-md-9 pt-2">
-          {loading ? (
-            <h4 className="text-danger">Loading...</h4>
-          ) : (
-            <h4 className="text-danger">Products</h4>
-          )}
+          <div className="col-md-9 pt-2">
+            {loading ? (
+              <h4 className="text-danger">Loading...</h4>
+            ) : (
+              <h4 className="text-danger">Products</h4>
+            )}
 
-          {products.length < 1 && <p>No products found</p>}
+            {products.length < 1 && <p>No products found</p>}
 
-          <div className="row pb-5">
-            {products.map((p) => (
-              <div key={p._id} className="col-md-4 mt-3">
-                <ProductCard product={p} />
-              </div>
-            ))}
+            <div className="row pb-5">
+              {products.map((p) => (
+                <div key={p._id} className="col-md-4 mt-3">
+                  <ProductCard product={p} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+ 
   );
 };
 

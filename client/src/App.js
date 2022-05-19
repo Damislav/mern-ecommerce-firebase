@@ -31,6 +31,7 @@ import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
+import SideDrawer from "./components/drawer/SideDrawer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -65,7 +66,9 @@ const App = () => {
   return (
     <>
       <Header />
+      <SideDrawer />
       <ToastContainer />
+
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />

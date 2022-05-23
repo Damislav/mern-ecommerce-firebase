@@ -32,7 +32,6 @@ router.post("/products", list);
 router.put("/product/star/:productId", authCheck, productStar);
 // related
 router.get("/product/related/:productId", listRelated);
-
 // search
 router.post("/search/filters", searchFilters);
 

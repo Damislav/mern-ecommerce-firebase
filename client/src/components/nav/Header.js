@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Badge, Menu } from "antd";
+import { Menu, Badge } from "antd";
 import {
   AppstoreOutlined,
   SettingOutlined,
@@ -44,16 +44,19 @@ const Header = () => {
       <Item key="home" icon={<AppstoreOutlined />}>
         <Link to="/">Home</Link>
       </Item>
-      <Item key="shop" icon={<ShoppingOutlined />} className="float-right">
+
+      <Item key="shop" icon={<ShoppingOutlined />}>
         <Link to="/shop">Shop</Link>
       </Item>
-      <Item key="cart" icon={<ShoppingCartOutlined />} className="float-right">
+
+      <Item key="cart" icon={<ShoppingCartOutlined />}>
         <Link to="/cart">
-          <Badge offset={[9, 0]} count={cart.length}>
+          <Badge count={cart.length} offset={[9, 0]}>
             Cart
           </Badge>
         </Link>
       </Item>
+
       {!user && (
         <Item key="register" icon={<UserAddOutlined />} className="float-right">
           <Link to="/register">Register</Link>
@@ -89,6 +92,7 @@ const Header = () => {
           </Item>
         </SubMenu>
       )}
+
       <span className="float-right p-1">
         <Search />
       </span>

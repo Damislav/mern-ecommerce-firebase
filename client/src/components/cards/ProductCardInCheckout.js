@@ -1,8 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import ModalImage from "react-modal-image";
-import { toast } from "react-toastify";
 import laptop from "../../images/laptop.png";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -134,20 +134,16 @@ const ProductCardInCheckout = ({ p }) => {
           />
         </td>
         <td className="text-center">
-          {p.shipping ? (
-            <>
-              <CheckCircleOutlined className="text-success  " />
-            </>
+          {p.shipping === "Yes" ? (
+            <CheckCircleOutlined className="text-success" />
           ) : (
-            <>
-              <CloseCircleOutlined className="text-danger" />
-            </>
+            <CloseCircleOutlined className="text-danger" />
           )}
         </td>
         <td className="text-center">
           <CloseOutlined
+            onClick={handleRemove}
             className="text-danger pointer"
-            onClick={() => handleRemove(p._id)}
           />
         </td>
       </tr>

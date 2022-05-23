@@ -14,12 +14,8 @@ const Login = ({ history }) => {
 
   const { user } = useSelector((state) => ({ ...state }));
 
-  // const lastLocation = useLocation();
-  // history.push(`/login?redirectTo=${lastLocation}`);
-
   useEffect(() => {
     let intended = history.location.state;
-    // console.log(intended);
     if (intended) {
       return;
     } else {
@@ -33,7 +29,6 @@ const Login = ({ history }) => {
     // check if intended
     let intended = history.location.state;
     if (intended) {
-      // get back from when i came
       history.push(intended.from);
     } else {
       if (res.data.role === "admin") {
@@ -43,6 +38,7 @@ const Login = ({ history }) => {
       }
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -71,7 +67,7 @@ const Login = ({ history }) => {
 
       // history.push("/");
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       toast.error(error.message);
       setLoading(false);
     }
@@ -101,7 +97,7 @@ const Login = ({ history }) => {
         // history.push("/");
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
         toast.error(err.message);
       });
   };

@@ -9,8 +9,9 @@ import ProductListItems from "./ProductListItems";
 import StarRating from "react-star-ratings";
 import RatingModal from "../modal/RatingModal";
 import { showAverage } from "../../functions/rating";
-import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
+
 const { TabPane } = Tabs;
 
 // this is childrend component of Product page
@@ -22,6 +23,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
   const dispatch = useDispatch();
 
   const { title, images, description, _id } = product;
+
   const handleAddToCart = () => {
     // create cart array
     let cart = [];
@@ -43,12 +45,12 @@ const SingleProduct = ({ product, onStarClick, star }) => {
       // show tooltip
       setTooltip("Added");
 
-      // add to redux state
+      // add to reeux state
       dispatch({
         type: "ADD_TO_CART",
         payload: unique,
       });
-      // show  cart items in sidebar
+      // show cart items in side drawer
       dispatch({
         type: "SET_VISIBLE",
         payload: true,
@@ -94,7 +96,6 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                 Cart
               </a>
             </Tooltip>,
-            ,
             <Link to="/">
               <HeartOutlined className="text-info" /> <br /> Add to Wishlist
             </Link>,

@@ -38,10 +38,6 @@ const productSchema = new mongoose.Schema(
         ref: "Sub",
       },
     ],
-    postedBy: {
-      type: ObjectId,
-      ref: "postedBy",
-    },
     quantity: Number,
     sold: {
       type: Number,

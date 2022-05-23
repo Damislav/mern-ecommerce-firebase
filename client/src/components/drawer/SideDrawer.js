@@ -1,12 +1,13 @@
 import React from "react";
-import { Drawer } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Drawer, Button } from "antd";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import laptop from "../../images/laptop.png";
 
 const SideDrawer = () => {
   const dispatch = useDispatch();
   const { drawer, cart } = useSelector((state) => ({ ...state }));
+
   const imageStyle = {
     width: "100%",
     height: "50px",

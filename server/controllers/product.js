@@ -278,8 +278,16 @@ const handleBrand = async (req, res, brand) => {
 };
 
 exports.searchFilters = async (req, res) => {
-  const { query, price, category, stars, sub, shipping, color, brand } =
-    req.body;
+  const {
+    query,
+    price,
+    category,
+    stars,
+    sub,
+    shipping,
+    color,
+    brand,
+  } = req.body;
 
   if (query) {
     console.log("query --->", query);
@@ -298,27 +306,27 @@ exports.searchFilters = async (req, res) => {
   }
 
   if (stars) {
-    // console.log("stars ---> ", stars);
+    console.log("stars ---> ", stars);
     await handleStar(req, res, stars);
   }
 
   if (sub) {
-    // console.log("sub ---> ", sub);
+    console.log("sub ---> ", sub);
     await handleSub(req, res, sub);
   }
 
   if (shipping) {
-    // console.log("shipping ---> ", shipping);
+    console.log("shipping ---> ", shipping);
     await handleShipping(req, res, shipping);
   }
 
   if (color) {
-    // console.log("color ---> ", color);
+    console.log("color ---> ", color);
     await handleColor(req, res, color);
   }
 
   if (brand) {
-    // console.log("brand ---> ", brand);
+    console.log("brand ---> ", brand);
     await handleBrand(req, res, brand);
   }
 };

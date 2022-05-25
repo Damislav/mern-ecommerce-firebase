@@ -30,12 +30,12 @@ import SubHome from "./pages/sub/SubHome";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import CreateCouponPage from "./pages/admin/coupon/CreateCouponPage";
+import Payment from "./pages/Payment";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
-import CreateCoupon from "./pages/admin/coupon/CreateCoupon";
-import Payment from "./pages/Payment";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -96,14 +96,14 @@ const App = () => {
           exact
           path="/admin/product/:slug"
           component={ProductUpdate}
-        />{" "}
-        <AdminRoute exact path="/admin/coupon" component={CreateCoupon} />
+        />
         <Route exact path="/product/:slug" component={Product} />
         <Route exact path="/category/:slug" component={CategoryHome} />
         <Route exact path="/sub/:slug" component={SubHome} />
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
         <UserRoute exact path="/checkout" component={Checkout} />
+        <AdminRoute exact path="/admin/coupon" component={CreateCouponPage} />
         <UserRoute exact path="/payment" component={Payment} />
       </Switch>
     </>

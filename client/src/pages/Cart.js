@@ -5,7 +5,7 @@ import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
 import { userCart } from "../functions/user";
 
 const Cart = ({ history }) => {
-  const { cart, user, coupon } = useSelector((state) => ({ ...state }));
+  const { cart, user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
 
   const getTotal = () => {

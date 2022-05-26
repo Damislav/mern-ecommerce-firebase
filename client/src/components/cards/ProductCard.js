@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Card, Tooltip } from "antd";
+import React from "react";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import laptop from "../../images/laptop.png";
+import { Card, Tooltip } from "antd";
+import _ from "lodash";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
-import _ from "lodash";
-import { useSelector, useDispatch } from "react-redux";
+import laptop from "../../images/laptop.png";
 
 const { Meta } = Card;
 

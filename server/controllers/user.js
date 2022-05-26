@@ -204,6 +204,7 @@ exports.createCashOrder = async (req, res) => {
   let userCart = await Cart.findOne({ orderdBy: user._id }).exec();
 
   let finalAmount = 0;
+
   if (couponApplied && userCart.totalAfterDiscount) {
     finalAmount = userCart.totalAfterDiscount * 100;
   } else {
@@ -221,7 +222,7 @@ exports.createCashOrder = async (req, res) => {
       payment_method_types: ["cash"],
     },
     orderdBy: user._id,
-    orderStatus: "Cash on Delivery",
+    orderStatus: "Cash On Delivery",
   }).save();
 
   // decrement quantity, increment sold

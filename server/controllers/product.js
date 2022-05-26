@@ -67,6 +67,24 @@ exports.update = async (req, res) => {
   }
 };
 
+// WITHOUT PAGINATION
+// exports.list = async (req, res) => {
+//   try {
+//     // createdAt/updatedAt, desc/asc, 3
+//     const { sort, order, limit } = req.body;
+//     const products = await Product.find({})
+//       .populate("category")
+//       .populate("subs")
+//       .sort([[sort, order]])
+//       .limit(limit)
+//       .exec();
+
+//     res.json(products);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
 // WITH PAGINATION
 exports.list = async (req, res) => {
   // console.table(req.body);
@@ -179,6 +197,7 @@ const handlePrice = async (req, res, price) => {
 };
 
 const handleCategory = async (req, res, category) => {
+  console.log(category);
   try {
     let products = await Product.find({ category })
       .populate("category", "_id name")
@@ -281,7 +300,7 @@ exports.searchFilters = async (req, res) => {
 
   if (stars) {
     console.log("stars ---> ", stars);
-    await handleStar(req, res, stars);
+    handleStar(req, res, stars);
   }
 
   if (sub) {

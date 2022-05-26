@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { DeleteOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import UserNav from "../../components/nav/UserNav";
 import { getWishlist, removeWishlist } from "../../functions/user";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { DeleteOutlined } from "@ant-design/icons";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);

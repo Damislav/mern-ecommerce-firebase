@@ -128,26 +128,26 @@ const Checkout = ({ history }) => {
       console.log("USER CASH ORDER CREATED RES ", res);
       // empty cart form redux, local Storage, reset coupon, reset COD, redirect
       if (res.data.ok) {
-        // ¸empptyloca storage
+        // empty local storage
         if (typeof window !== "undefined") localStorage.removeItem("cart");
-        // ¸empty redux cart
+        // empty redux cart
         dispatch({
           type: "ADD_TO_CART",
           payload: [],
         });
-        // ¸empoty redux coupon
+        // empty redux coupon
         dispatch({
           type: "COUPON_APPLIED",
           payload: false,
         });
-        // ¸empty redux cod
+        // empty redux COD
         dispatch({
           type: "COD",
           payload: false,
         });
-        // empty cart from backend
+        // mepty cart from backend
         emptyUserCart(user.token);
-        // ¸redirect
+        // redirect
         setTimeout(() => {
           history.push("/user/history");
         }, 1000);
